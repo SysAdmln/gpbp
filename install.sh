@@ -9,10 +9,23 @@ log() {
 	printf '%s\n' "$1" > /dev/stderr
 }
 
+install_deps() {
+	if ! rpm -q squashfs-tools > /dev/null; then
+		log "squashfs-tools package not found. Installing..."
+		pkcon -y install squashfs-tools
+	fi
+}
+
+backup() {
+    orig_image="$WORKDIR/system.img.orig.$(date +%Y%m%dT%H%M%S)"
+    cp "$SYSTEM_IMG" "$orig_image"
+    log "Copying original image $SYSTEM_IMG to $orig_image"
+}
+
 extract_image() {
 
-	if [ ! -f "$SYSTEM_IMG" ]; then
-		log "$SYSTEM_IMG not found"
+    if [ ! -f "$orig_image" ]; then
+		log "$orig_image not found"
 		return 1
 	fi
     unsquashfs -dest "$SQUASHFS_ROOT/" "$SYSTEM_IMG"
@@ -35,6 +48,9 @@ systemctl stop aliendalvik
 mkdir -p "$WORKDIR"
 mkdir -p "$TMPWORKDIR"
 
+install_deps
+backup
+log "backup done"
 extract_image
 log "image was extracted"
 log "install patch"
