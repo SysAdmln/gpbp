@@ -45,5 +45,4 @@ log "image was built"
 
 rmdir "$TMPWORKDIR"
 
-set_traps -
 exit 0
