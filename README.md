@@ -14,3 +14,22 @@ To work, you need to install OpenApps with this script [download](https://git.dm
         alt="uploaded"
         src="https://user-images.githubusercontent.com/90060131/238166914-c88adbda-55ef-4494-9437-d3c2e7b0024d.png">
 </picture>
+
+**Installation**
+--
+To install files:
+`````
+devel-su
+git clone https://git.dmin.pro/Jolla_phone/gpbp
+curl -sSL https://git.dmin.pro/Jolla_phone/MyJolla/raw/branch/main/open_gaps_install.sh > open_gaps_install.sh
+chmod +x open_gaps_install.sh
+open_gaps_install.sh
+cd ./gpbp
+chmod +x install.sh
+install.sh
+reboot phone
+`````
+or use a short script
+`````
+devel-su curl -sSL https://git.dmin.pro/Jolla_phone/MyJolla/raw/branch/main/install_gphoto_backup.sh | sh
+`````
